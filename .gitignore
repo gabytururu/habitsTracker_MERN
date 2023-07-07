@@ -1,0 +1,8 @@
+######   BACKEND   ##### 
+
+#Environment Variables
+backend/.env
+#node modules
+backend/node_modules
+
+
