@@ -2,10 +2,11 @@ const express = require('express')
 require('dotenv').config()
 const HabitsRoutes = require('./routes/routesHabitsTracker')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 
 const app = express()
-
+app.use(cors())
 app.use((req,res,next)=>{
     console.log(req.path, req.method)
     next()
