@@ -4,14 +4,14 @@ const HabitsList = ({habit}) => {
     //const {title, reps} = habits
     //const [habits,setHabits] = useState(habits)
     return ( 
-
-            <Link to='/reports'>
-                <div className="habitCard">
+            <div className="habitCard">
+                <Link to='/reports'>                
                     <p>habit name:{habit.title}</p>
-                    <p>habit reps:{habit.reps}</p>           
-                    <p>Habit id:{habit.id}</p>          
-                </div>
-            </Link>
+                    <p>habit tracking Method:{habit.trackingMethod}</p>           
+                    <p>Habit qty:{habit.quantity}</p>          
+                    <p>Habit ID:{habit._id}</p>         
+                </Link>
+            </div>
            
        
      );
