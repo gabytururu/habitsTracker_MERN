@@ -31,7 +31,7 @@ const Home = () => {
           <div className="habitsList-container">
             <h1>Here's your Habits Bucket</h1>
                 {habits&&habits.map((habit) => (               
-                    <HabitsList key={habit.id} habit={habit}/>                
+                    <HabitsList key={habit._id} habit={habit}/>                
                 ))}      
           </div>
         </div>

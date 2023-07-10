@@ -90,25 +90,50 @@ code {
   margin: 10px
 }
 
-.habitCard{
+.habitCard-container{
   background-color: white;
   margin-bottom: 15px;
   border-radius: 8px;
-  height: 14vh;  
+  padding: 15px;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  text-align: left;
-  justify-content: center;
+  /* flex-direction: column; */
+  
+  /* text-align: left; */
+  /* justify-content: center; */
   border-left: 8px solid var(--primary)
 }
 
-.habitCard a{
+.habitInfo{
+  /* background-color: #e7195a; */
+  width:85%;
+  text-align: left;
+}
+
+.deleteHabit{
+  /* background-color: aquamarine; */
+  color: red;
+  width: 15%;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.deleteButton{
+  padding: 8px;
+  border: none;
+  border-radius: 5px; 
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+}
+
+.habitInfo a{
   text-decoration: none;
   color: rgb(31, 29, 29);
-  margin-left:15px
+  /* margin-left:15px */
 }
-.habitCard a:hover{  
+.habitInfo a:hover{  
   color: var(--primary) 
 }
 
