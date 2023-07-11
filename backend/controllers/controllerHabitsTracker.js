@@ -5,7 +5,7 @@ const Habit = require('../models/habitsModel')
 const getHabits = async(req, res)=>{
     // {res.json({mssg: 'GET ALL habits from tracker app'})}
     try{
-        const habitsList = await Habit.find({}).sort({createdAd:-1})
+        const habitsList = await Habit.find({}).sort({createdAt:-1})
         res.status(200).json(habitsList)
     }catch(err){
         res.status(400).json({err: err.message})

@@ -1,10 +1,11 @@
 import {useState, useEffect, useContext} from 'react'
 import HabitsList from '../components/HabitsList'
+import  HabitsContext  from '../context/habitsContext'
 //import { HabitsContext } from '../context/habitsContext'
 
 const Home = () => {
-    const [habits, setHabits] = useState([])
-    //const habitsContext = useContext(HabitsContext)
+    // const [habits, setHabits] = useState([])
+    const {habits, dispatch} = useContext(HabitsContext)
    
         useEffect(()=>{
             const fetchData = async() =>{
@@ -16,17 +17,16 @@ const Home = () => {
                 if(fetchedObject.ok){
                     console.log(fetchedObject)
                     console.log(fetchedJsonData)
-                    setHabits(fetchedJsonData)
-                   
+                    //setHabits(fetchedJsonData)  
+                    dispatch({type: 'SET_HABITS', payload:fetchedJsonData})
                 }  
 
                 }catch(err){
                     console.log(err)
                 }
-              
             }
             fetchData()
-        },[])
+        },[dispatch])
        
         
     return ( 

@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import HabitsContext from '../context/habitsContext'
 
-const HabitsList = ({habit}) => {
-   
+const HabitsList = ({habit}) => {    
+    const {habits, dispatch} = useContext(HabitsContext)
+    
     const handleDelete = async(e) =>{
         console.log('delete habit #', habit._id)
-        const fetchDelete = await fetch(`http://localhost:4000/api/habits/${habit._id}`,{
+        const fetchDelete = await fetch(`/${habit._id}`,{
             method: 'DELETE'
         })
         const responseDelete = await fetchDelete.json()
@@ -15,6 +17,7 @@ const HabitsList = ({habit}) => {
             console.log('y no se pudo borar esta cosa')
         }else{
             console.log('y ya borramos la cosa --->', responseDelete) 
+            dispatch({type:'DELETE_WORKOUT', payload:responseDelete})
         } 
     }
 
@@ -22,6 +25,8 @@ const HabitsList = ({habit}) => {
     const [quantity, setQuantity] = useState(habit.quantity)
     const [id, setId] = useState(habit._id)
     const [modal, setModal] = useState(false)
+    
+    
 
     const handleUpdate = async(e)=>{
         console.log('update habit #', habit._id)
@@ -29,7 +34,8 @@ const HabitsList = ({habit}) => {
         
     }
 
-    const handleSubmit = async()=>{
+    const handleSubmit = async(e)=>{
+        e.preventDefault()
         const updatedHabit = {title: title, quantity:quantity}
         console.log({id, title, quantity})
         const fetchUpdate = await fetch(`http://localhost:4000/api/habits/${id}`, {
@@ -37,13 +43,15 @@ const HabitsList = ({habit}) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(updatedHabit)
         })
-
         const responseFetch = await fetchUpdate.json()
 
         if(!fetchUpdate.ok){
              console.log('la actualizacion no jalo')
+             
         }else{
             console.log(' update lograda. va Objeto PATCHEADO Nativo-->', fetchUpdate, 'ahora va objeto Fetcheado en JSON--->', responseFetch)
+            dispatch({type: 'SET_HABITS', payload: responseFetch})
+            
         }
         // console.log('primerFetch --->', fetchUpdate)
         // console.log('fetchUpdate en json-->', responseFetch)
@@ -54,12 +62,6 @@ const HabitsList = ({habit}) => {
     return ( 
             <div className="habitCard-container">
                     <div className="habitInfo">                        
-                        {/* <Link to='/reports'>   
-                            <p>habit name:{habit.title}</p>
-                            <p>habit tracking Method:{habit.trackingMethod}</p>           
-                            <p>Habit qty:{habit.quantity}</p>          
-                            <p>Habit ID:{habit._id}</p>
-                        </Link>             */}
                         {modal ?
                             <form onSubmit={handleSubmit}>
                                  <h3>Changing Habit # {id}</h3>

@@ -1,15 +1,18 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
+//import HabitsContext from '../context/habitsContext'
 
 const CreateHabitForm = () => {
+    //const {dispatch} = useContext(HabitsContext)
     const [title, setTitle] = useState('')
     const [trackingMethod, setTrackingMethod] = useState('')
     const [quantity, setQuantity] = useState('')
 
     const navigate = useNavigate()
+    
 
-    const handleSubmit = async(e) =>{
-        e.preventDefault()
+    const handleSubmit = async() =>{
+        //e.preventDefault()
         const newHabit = {title, trackingMethod, quantity}
         console.log(newHabit)
 
@@ -27,8 +30,8 @@ const CreateHabitForm = () => {
         }
         if(postedData.ok){
             console.log('new habit added', response)
-            navigate('/')
-
+            //dispatch({type:'CREATE_HABIT', payload: response})
+            navigate("/")
         }
     }
     
