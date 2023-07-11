@@ -1,9 +1,12 @@
 import {useState} from 'react'
+import {useNavigate} from 'react-router-dom'
 
 const CreateHabitForm = () => {
     const [title, setTitle] = useState('')
     const [trackingMethod, setTrackingMethod] = useState('')
     const [quantity, setQuantity] = useState('')
+
+    const navigate = useNavigate()
 
     const handleSubmit = async(e) =>{
         e.preventDefault()
@@ -20,9 +23,12 @@ const CreateHabitForm = () => {
 
         if(!postedData.ok){
             console.log(response.error)
+           
         }
         if(postedData.ok){
             console.log('new habit added', response)
+            navigate('/')
+
         }
     }
     

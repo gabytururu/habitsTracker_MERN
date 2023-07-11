@@ -1,8 +1,10 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext} from 'react'
 import HabitsList from '../components/HabitsList'
+//import { HabitsContext } from '../context/habitsContext'
 
 const Home = () => {
     const [habits, setHabits] = useState([])
+    //const habitsContext = useContext(HabitsContext)
    
         useEffect(()=>{
             const fetchData = async() =>{
@@ -15,6 +17,7 @@ const Home = () => {
                     console.log(fetchedObject)
                     console.log(fetchedJsonData)
                     setHabits(fetchedJsonData)
+                   
                 }  
 
                 }catch(err){
@@ -33,6 +36,7 @@ const Home = () => {
                 {habits&&habits.map((habit) => (               
                     <HabitsList key={habit._id} habit={habit}/>                
                 ))}      
+                {/* where does .sort({createdAt:-1}) goes?? */}
           </div>
         </div>
      );
