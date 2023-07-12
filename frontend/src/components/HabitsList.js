@@ -3,7 +3,7 @@ import {useState, useContext} from 'react'
 import HabitsContext from '../context/habitsContext'
 
 const HabitsList = ({habit}) => {    
-    const {habits, dispatch} = useContext(HabitsContext)
+    const {dispatch} = useContext(HabitsContext)
 
     const [title, setTitle] = useState(habit.title)
     const [quantity, setQuantity] = useState(habit.quantity)
@@ -27,24 +27,24 @@ const HabitsList = ({habit}) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(updatedHabit)
         })
-        const responseFetch = await fetchUpdate.json()
+            const responseFetch = await fetchUpdate.json()
 
-        if(!fetchUpdate.ok){
-             console.log('la actualizacion no jalo')
-             
-        }else{
-            console.log(' update lograda. va Objeto PATCHEADO Nativo-->', fetchUpdate, 'ahora va objeto Fetcheado en JSON--->', responseFetch)
-            dispatch({type: 'UPDATE_HABITS'})
-            setUpdatedHabit(true) 
-            setOriginalHabit(false)
-            setModal(false)
-                   
+            if(!fetchUpdate.ok){
+                console.log('la actualizacion no jalo')
+                
+            }else{
+                console.log(' update lograda. va Objeto PATCHEADO Nativo-->', fetchUpdate, 'ahora va objeto Fetcheado en JSON--->', responseFetch)
+                dispatch({type: 'UPDATE_HABITS'})
+                setUpdatedHabit(true) 
+                setOriginalHabit(false)
+                setModal(false)
+                    
+            }
         }
-    }
     
-    const handleDelete = async(e) =>{
+    const handleDelete = async() =>{
         console.log('delete habit #', habit._id)
-        const fetchDelete = await fetch(`/${habit._id}`,{
+        const fetchDelete = await fetch(`http://localhost:4000/api/habits/${habit._id}`,{
             method: 'DELETE'
         })
         const responseDelete = await fetchDelete.json()
@@ -54,11 +54,10 @@ const HabitsList = ({habit}) => {
             console.log('y no se pudo borar esta cosa')
         }else{
             console.log('y ya borramos la cosa --->', responseDelete) 
-            //dispatch({type:'DELETE_WORKOUT', payload:responseDelete})
+            dispatch({type:'DELETE_HABITS', payload:responseDelete})
         } 
     }
-    
-   
+
     return ( 
             <div className="habitCard-container">
                     <div className="habitInfo">  
