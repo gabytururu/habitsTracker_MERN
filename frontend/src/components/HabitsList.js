@@ -62,7 +62,7 @@ const HabitsList = ({habit}) => {
             <div className="habitCard-container">
                     <div className="habitInfo">  
                         { originalHabit &&
-                            <Link to='/reports'>   
+                            <Link to={habit._id}>   
                             <p>habit name:{habit.title}</p>
                             <p>habit tracking Method:{habit.trackingMethod}</p>           
                             <p>Habit qty:{habit.quantity}</p>          
@@ -81,7 +81,7 @@ const HabitsList = ({habit}) => {
                             </form>       
                         }   
                         {updatedHabit &&
-                            <Link to='/reports'>   
+                            <Link to={habit._id}>   
                             <p>habit name:{title}</p>
                             <p>habit tracking Method:{habit.trackingMethod}</p>           
                             <p>Habit qty:{quantity}</p>          

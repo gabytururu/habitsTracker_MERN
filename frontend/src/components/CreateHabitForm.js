@@ -3,16 +3,15 @@ import {useNavigate} from 'react-router-dom'
 import HabitsContext from '../context/habitsContext'
 
 const CreateHabitForm = () => {
-    const {habits, dispatch} = useContext(HabitsContext)
+    const {dispatch} = useContext(HabitsContext)
     const [title, setTitle] = useState('')
     const [trackingMethod, setTrackingMethod] = useState('')
     const [quantity, setQuantity] = useState('')
 
     const navigate = useNavigate()
     
-
-    const handleSubmit = async() =>{
-        //e.preventDefault()
+    const handleSubmit = async(e) =>{
+        e.preventDefault()
         const newHabit = {title, trackingMethod, quantity}
         console.log(newHabit)
 
@@ -30,7 +29,7 @@ const CreateHabitForm = () => {
         }
         if(postedData.ok){
             console.log('new habit added', response)
-            //dispatch({type:'CREATE_HABIT', payload: response})
+           dispatch({type:'CREATE_HABIT', payload: response})
             navigate("/")
         }
     }
@@ -54,7 +53,7 @@ const CreateHabitForm = () => {
                     <option value="Times X Day"></option>
                     <option value="Hours X Day"></option>
                 </select>
-                <label>Habit's name</label>
+                <label>Habit's Quantity</label>
                 <input 
                 type="number" 
                 value={quantity}
