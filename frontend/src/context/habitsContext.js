@@ -12,10 +12,17 @@ const habitsReducer = (state, action) =>{
             return{
                 habits: [action.payload, ...state.habits]
             }
-        case 'DELETE_WORKOUT':
+        case 'DELETE_HABITS':
             return{
                 habits: state.habits.filter((habit)=>habit._id !== action.payload._id)
             }
+        case 'UPDATE_HABITS':
+            return{
+                habits: [...state.habits]
+            }
+        //Notas Cautelares asi funciona pero no se actualiza la pagina - por lo que no se refresca, pero si quito prevent default si.. entonces pues ni pex, llamado nuevo a backend ... mas uso de server.. mas $$ 
+        //habits: [...state.habits, action.payload] --> 2 children with same id -- no importa el orden, si ponemos ambos truena en ambos por ahora queda asi.. a futuro... sustituir en frontend
+            //
         default:
             return state
     }

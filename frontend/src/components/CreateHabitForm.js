@@ -1,9 +1,9 @@
 import {useState, useContext} from 'react'
 import {useNavigate} from 'react-router-dom'
-//import HabitsContext from '../context/habitsContext'
+import HabitsContext from '../context/habitsContext'
 
 const CreateHabitForm = () => {
-    //const {dispatch} = useContext(HabitsContext)
+    const {habits, dispatch} = useContext(HabitsContext)
     const [title, setTitle] = useState('')
     const [trackingMethod, setTrackingMethod] = useState('')
     const [quantity, setQuantity] = useState('')

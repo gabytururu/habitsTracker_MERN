@@ -4,34 +4,18 @@ import HabitsContext from '../context/habitsContext'
 
 const HabitsList = ({habit}) => {    
     const {habits, dispatch} = useContext(HabitsContext)
-    
-    const handleDelete = async(e) =>{
-        console.log('delete habit #', habit._id)
-        const fetchDelete = await fetch(`/${habit._id}`,{
-            method: 'DELETE'
-        })
-        const responseDelete = await fetchDelete.json()
-        console.log(fetchDelete)
-        console.log(responseDelete)
-        if(!fetchDelete.ok){
-            console.log('y no se pudo borar esta cosa')
-        }else{
-            console.log('y ya borramos la cosa --->', responseDelete) 
-            dispatch({type:'DELETE_WORKOUT', payload:responseDelete})
-        } 
-    }
 
     const [title, setTitle] = useState(habit.title)
     const [quantity, setQuantity] = useState(habit.quantity)
     const [id, setId] = useState(habit._id)
+    const [originalHabit, setOriginalHabit] = useState(true)
     const [modal, setModal] = useState(false)
-    
-    
+    const [updatedHabit, setUpdatedHabit] = useState(false)
 
-    const handleUpdate = async(e)=>{
+    const handleUpdate = async()=>{
         console.log('update habit #', habit._id)
-        setModal(true)
-        
+        setModal(true) 
+        setOriginalHabit(false) 
     }
 
     const handleSubmit = async(e)=>{
@@ -50,19 +34,44 @@ const HabitsList = ({habit}) => {
              
         }else{
             console.log(' update lograda. va Objeto PATCHEADO Nativo-->', fetchUpdate, 'ahora va objeto Fetcheado en JSON--->', responseFetch)
-            dispatch({type: 'SET_HABITS', payload: responseFetch})
-            
+            dispatch({type: 'UPDATE_HABITS'})
+            setUpdatedHabit(true) 
+            setOriginalHabit(false)
+            setModal(false)
+                   
         }
-        // console.log('primerFetch --->', fetchUpdate)
-        // console.log('fetchUpdate en json-->', responseFetch)
     }
-        
+    
+    const handleDelete = async(e) =>{
+        console.log('delete habit #', habit._id)
+        const fetchDelete = await fetch(`/${habit._id}`,{
+            method: 'DELETE'
+        })
+        const responseDelete = await fetchDelete.json()
+        console.log(fetchDelete)
+        console.log(responseDelete)
+        if(!fetchDelete.ok){
+            console.log('y no se pudo borar esta cosa')
+        }else{
+            console.log('y ya borramos la cosa --->', responseDelete) 
+            //dispatch({type:'DELETE_WORKOUT', payload:responseDelete})
+        } 
+    }
     
    
     return ( 
             <div className="habitCard-container">
-                    <div className="habitInfo">                        
-                        {modal ?
+                    <div className="habitInfo">  
+                        { originalHabit &&
+                            <Link to='/reports'>   
+                            <p>habit name:{habit.title}</p>
+                            <p>habit tracking Method:{habit.trackingMethod}</p>           
+                            <p>Habit qty:{habit.quantity}</p>          
+                            <p>Habit ID:{habit._id}</p>
+                            <p>created: {habit.createdAt}</p>
+                            </Link>     
+                        }                      
+                        {modal &&
                             <form onSubmit={handleSubmit}>
                                  <h3>Changing Habit # {id}</h3>
                                 <label>Current Habit Title</label>
@@ -70,25 +79,23 @@ const HabitsList = ({habit}) => {
                                 <label>Current Habit Qty</label>
                                 <input type="text" value={quantity} onChange = {(e)=>{setQuantity(e.target.value)}}/>
                                 <button>Send Update</button>
-                            </form> 
-                            :
+                            </form>       
+                        }   
+                        {updatedHabit &&
                             <Link to='/reports'>   
-                            <p>habit name:{habit.title}</p>
+                            <p>habit name:{title}</p>
                             <p>habit tracking Method:{habit.trackingMethod}</p>           
-                            <p>Habit qty:{habit.quantity}</p>          
+                            <p>Habit qty:{quantity}</p>          
                             <p>Habit ID:{habit._id}</p>
                             <p>created: {habit.createdAt}</p>
-                            </Link>         
-                        }                       
+                            </Link>    
+                        }                      
                     </div>                  
                     <div className="deleteHabit">
                         <button className="deleteButton" onClick={handleDelete}>Delete</button> 
                         <button className="deleteButton" onClick={handleUpdate}>Update</button> 
-                    </div>         
-                         
+                    </div>              
             </div>
-           
-       
      );
 }
  
