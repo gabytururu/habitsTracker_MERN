@@ -49,9 +49,9 @@ const CreateHabitForm = () => {
                 value={trackingMethod}
                 onChange={(e)=>{setTrackingMethod(e.target.value)}}
                 >
-                    <option value="Minutes X Day"></option>
-                    <option value="Times X Day"></option>
-                    <option value="Hours X Day"></option>
+                    <option value="Minutes X Day">Minutes Per day</option>
+                    <option value="Times X Day">Times Per day</option>
+                    <option value="Hours X Day">Hours per day</option>
                 </select>
                 <label>Habit's Quantity</label>
                 <input 
